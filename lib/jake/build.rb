@@ -21,6 +21,12 @@ module Jake
       "#{ @dir }/#{ @config[:source_directory] || '.' }"
     end
     
+    def header
+      @config[:header] ?
+          Jake.read("#{ source_directory }/#{ @config[:header] }") :
+          ""
+    end
+    
     def packer_settings
       @config[:packer] || {}
     end

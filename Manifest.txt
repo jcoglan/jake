@@ -4,4 +4,6 @@ README.txt
 Rakefile
 bin/jake
 lib/jake.rb
+lib/jake/build.rb
+lib/jake/package.rb
 test/test_jake.rb

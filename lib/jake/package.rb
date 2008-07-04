@@ -5,10 +5,17 @@ module Jake
     
     def initialize(build, name, config)
       @build, @name, @config = build, name, config
+      puts header
     end
     
     def directory
       "#{ @build.source_directory }/#{ @config[:directory] }"
+    end
+    
+    def header
+      @config[:header] ?
+          Jake.read("#{ directory }/#{ @config[:header] }") :
+          @build.header
     end
     
     def source

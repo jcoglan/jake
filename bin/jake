@@ -1,0 +1,6 @@
+#!/usr/bin/ruby
+require 'rubygems'
+require 'jake'
+
+Jake.build(File.expand_path(ARGV.first || '.'))
+

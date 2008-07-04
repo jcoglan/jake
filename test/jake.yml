@@ -6,6 +6,16 @@ packer:
   shrink_vars:    true
   private:        true
 packages:
+  js-class:
+    directory:    external
+    header:       COPYRIGHT
+    packer:
+      private:    false
+    files:
+        - class
+        - method_chain
+        - observable
+        - state
   core:
     files:
       - core/core
