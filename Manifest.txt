@@ -5,5 +5,7 @@ Rakefile
 bin/jake
 lib/jake.rb
 lib/jake/build.rb
+lib/jake/buildable.rb
 lib/jake/package.rb
+lib/jake/bundle.rb
 test/test_jake.rb

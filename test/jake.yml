@@ -67,7 +67,7 @@ packages:
     files:
       - history
       
-  pkg/keyborad:
+  pkg/keyboard:
     directory:    packages/keyboard
     files:
       - begin
@@ -101,4 +101,18 @@ packages:
       - paginator
       - ajax_paginator
       - controls
+
+bundles:
+  all:
+    header: COPYRIGHT
+    files:
+      - js-class
+      - core
+      - pkg/http
+      - pkg/forms
+      - pkg/history
+      - pkg/keyboard
+      - pkg/mouse
+      - pkg/overlay
+      - pkg/paginator
 

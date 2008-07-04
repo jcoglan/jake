@@ -22,5 +22,7 @@ module Jake
 end
 
 require File.dirname(__FILE__) + '/jake/build'
+require File.dirname(__FILE__) + '/jake/buildable'
 require File.dirname(__FILE__) + '/jake/package'
+require File.dirname(__FILE__) + '/jake/bundle'
 
