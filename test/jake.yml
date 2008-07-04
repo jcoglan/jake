@@ -1,0 +1,27 @@
+---
+build_directory:  build
+source_directory: source
+header:           COPYRIGHT
+packer:
+  shrink_vars:    true
+  private:        true
+packages:
+  core:
+    files:
+      - core/core
+      - core/utils
+      - core/array
+      - core/function
+      - core/string
+      - core/number
+      - external/reiterate
+      - core/event
+      - core/observable
+      - core/dom_collection
+      - core/dom_insertion
+      - core/html_builder
+      - core/animation
+      - core/region
+      - core/sequence
+      - core/method_chain
+
