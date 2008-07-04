@@ -1,0 +1,7 @@
+History.txt
+Manifest.txt
+README.txt
+Rakefile
+bin/jake
+lib/jake.rb
+test/test_jake.rb
