@@ -3,7 +3,7 @@ module Jake
   CONFIG_FILE = 'jake.yml'
   
   def self.build(path)
-    Build.new(path).run
+    Build.new(path).run!
   end
   
   def self.read(path)

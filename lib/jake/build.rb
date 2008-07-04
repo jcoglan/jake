@@ -1,4 +1,5 @@
 require 'yaml'
+require 'fileutils'
 
 module Jake
   class Build
@@ -6,11 +7,12 @@ module Jake
       @dir = File.expand_path(dir)
       path = "#{dir}/#{CONFIG_FILE}"
       @config = Jake.symbolize_hash( YAML.load(File.read(path)) )
-      @config[:packages].each { |name, conf| Package.new(self, name, conf).write! }
+      @packages = @config[:packages].map { |name, conf| Package.new(self, name, conf) }
     end
     
-    def run
-      
+    def run!
+      FileUtils.rm_rf(build_directory)
+      @packages.each { |p| p.write! }
     end
     
     def build_directory
