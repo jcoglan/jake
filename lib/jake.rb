@@ -9,7 +9,7 @@ module Jake
   def self.read(path)
     path = File.expand_path(path)
     path = File.file?(path) ? path : ( File.file?("#{path}.js") ? "#{path}.js" : nil )
-    path and File.read(path)
+    path and File.read(path).strip
   end
   
   def self.symbolize_hash(hash, deep = true)

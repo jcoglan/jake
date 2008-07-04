@@ -6,6 +6,7 @@ packer:
   shrink_vars:    true
   private:        true
 packages:
+
   js-class:
     directory:    external
     header:       COPYRIGHT
@@ -16,6 +17,7 @@ packages:
         - method_chain
         - observable
         - state
+        
   core:
     files:
       - core/core
@@ -34,4 +36,68 @@ packages:
       - core/region
       - core/sequence
       - core/method_chain
+      
+  pkg/forms:
+    directory:    packages/forms
+    files:
+      - begin
+      - utils
+      - description
+      - requirement
+      - data
+      - errors
+      - dsl
+      - inputable
+      - checkable
+      - radio_buttons
+      - checkbox
+      - select
+      - end
+      
+  pkg/http:
+    directory:    packages/http
+    files:
+      - ajax
+      - cross_domain
+      - uri
+      
+  pkg/history:
+    directory:    packages/history
+    files:
+      - history
+      
+  pkg/keyborad:
+    directory:    packages/keyboard
+    files:
+      - begin
+      - utils
+      - keyboard
+      - rules
+      - monitor
+      - disabler
+      - events
+      - end
+      
+  pkg/mouse:
+    directory:    packages/mouse
+    files:
+      - mouse
+      
+  pkg/overlay:
+    directory:    packages/overlay
+    files:
+      - begin
+      - overlay
+      - transitions
+      - content_overlay
+      - tooltip
+      - page_mask
+      - end
+      
+  pkg/paginator:
+    directory:    packages/paginator
+    files:
+      - paginator
+      - ajax_paginator
+      - controls
 
