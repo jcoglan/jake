@@ -20,6 +20,9 @@ packages:
         
   core:
     directory:    core
+    requires:
+      - yui
+      - ojay/js-class-min
     files:
       - core
       - utils
@@ -40,6 +43,9 @@ packages:
       
   pkg/forms:
     directory:    packages/forms
+    requires:
+      - ojay/core-min
+      - ojay/pkg/http-min
     files:
       - begin
       - utils
@@ -57,6 +63,8 @@ packages:
       
   pkg/http:
     directory:    packages/http
+    requires:
+      - ojay/core-min
     files:
       - ajax
       - cross_domain
@@ -64,11 +72,15 @@ packages:
       
   pkg/history:
     directory:    packages/history
+    requires:
+      - ojay/core-min
     files:
       - history
       
   pkg/keyboard:
     directory:    packages/keyboard
+    requires:
+      - ojay/core-min
     files:
       - begin
       - utils
@@ -81,11 +93,15 @@ packages:
       
   pkg/mouse:
     directory:    packages/mouse
+    requires:
+      - ojay/core-min
     files:
       - mouse
       
   pkg/overlay:
     directory:    packages/overlay
+    requires:
+      - ojay/core-min
     files:
       - begin
       - overlay
@@ -97,6 +113,9 @@ packages:
       
   pkg/paginator:
     directory:    packages/paginator
+    requires:
+      - ojay/core-min
+      - ojay/pkg/http-min
     files:
       - paginator
       - ajax_paginator
