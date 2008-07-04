@@ -8,7 +8,6 @@ module Jake
     
     def initialize(build, name, config)
       @build, @name, @config = build, name, config
-      write!
     end
     
     def directory
@@ -42,10 +41,18 @@ module Jake
     end
     
     def write!
+      puts "\nBuilding package #{@name}"
+      puts "  -- directory: #{ directory }"
+      puts "  -- files:     #{ @config[:files].join(', ') }"
+      puts "  -- settings:  #{ packer_settings.inspect }"
+      
       path, min_path = build_path, minified_build_path
       [path, min_path].each { |p| FileUtils.mkdir_p(File.dirname(p)) }
       File.open(path, 'wb') { |f| f.write source }
       File.open(min_path, 'wb') { |f| f.write minified }
+      
+      puts "  -- created #{ path }, #{ (File.size(path)/1024.0).ceil } kb"
+      puts "  -- created #{ min_path }, #{ (File.size(min_path)/1024.0).ceil } kb"
     end
   end
 end

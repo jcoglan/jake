@@ -19,23 +19,24 @@ packages:
         - state
         
   core:
+    directory:    core
     files:
-      - core/core
-      - core/utils
-      - core/array
-      - core/function
-      - core/string
-      - core/number
-      - external/reiterate
-      - core/event
-      - core/observable
-      - core/dom_collection
-      - core/dom_insertion
-      - core/html_builder
-      - core/animation
-      - core/region
-      - core/sequence
-      - core/method_chain
+      - core
+      - utils
+      - array
+      - function
+      - string
+      - number
+      - ../external/reiterate
+      - event
+      - observable
+      - dom_collection
+      - dom_insertion
+      - html_builder
+      - animation
+      - region
+      - sequence
+      - method_chain
       
   pkg/forms:
     directory:    packages/forms
