@@ -7,7 +7,12 @@ module Jake
     attr_reader :name
     
     def initialize(build, name, config)
-      @build, @name, @config = build, name, config
+      @build, @name = build, name
+      @config = case config
+      when Hash   then config
+      when String then {:files => [config]}
+      when Array  then {:files => config}
+      end
     end
     
     def directory
