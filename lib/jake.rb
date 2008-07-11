@@ -1,6 +1,8 @@
 module Jake
   VERSION = '0.9.0'
+  
   CONFIG_FILE = 'jake.yml'
+  HELPER_FILE = 'Jakefile'
   
   def self.build(path)
     Build.new(path).run!
@@ -26,3 +28,16 @@ require File.dirname(__FILE__) + '/jake/buildable'
 require File.dirname(__FILE__) + '/jake/package'
 require File.dirname(__FILE__) + '/jake/bundle'
 
+class JakeHelper
+  def get_binding
+    binding
+  end
+end
+
+def jake(name, &block)
+  puts "New helper: #{name}"
+  JakeHelper.class_eval do
+    define_method(name, &block)
+  end
+end
+ 

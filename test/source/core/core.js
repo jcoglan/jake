@@ -18,3 +18,6 @@ var Ojay = function() {
     }
     return new Ojay.DomCollection(elements.unique());
 };
+
+Ojay.VERSION = '<%= get_version %>';
+

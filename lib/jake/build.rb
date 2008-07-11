@@ -6,8 +6,12 @@ module Jake
     
     def initialize(dir)
       @dir = File.expand_path(dir)
+      
       path = "#{dir}/#{CONFIG_FILE}"
       @config = Jake.symbolize_hash( YAML.load(File.read(path)) )
+      
+      helpers = "#{dir}/#{HELPER_FILE}"
+      load helpers if File.file?(helpers)
       
       @packages = @config[:packages].inject({}) do |pkgs, (name, conf)|
         pkgs[name] = Package.new(self, name, conf)

@@ -1,0 +1,4 @@
+jake :get_version do
+  '0.2.0'
+end
+

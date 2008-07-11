@@ -1,8 +1,13 @@
+require 'erb'
+
 module Jake
   class Package < Buildable
     
     def source
-      @source ||= @config[:files].map { |path| Jake.read("#{ directory }/#{ path }") }.join("\n")
+      return @source if @source
+      code = @config[:files].map { |path| Jake.read("#{ directory }/#{ path }") }.join("\n")
+      template = ERB.new(code)
+      @source = template.result(JakeHelper.new.get_binding)
     end
     
     def minified
