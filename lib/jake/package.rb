@@ -7,7 +7,7 @@ module Jake
       return @source if @source
       code = @config[:files].map { |path| Jake.read("#{ directory }/#{ path }") }.join("\n")
       template = ERB.new(code)
-      @source = template.result(JakeHelper.new.get_binding)
+      @source = template.result(Helper.new.get_binding)
     end
     
     def minified

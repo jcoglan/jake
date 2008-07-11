@@ -21,6 +21,10 @@ module Jake
       output
     end
   end
+  
+  class Helper
+    def get_binding; binding; end
+  end
 end
 
 require File.dirname(__FILE__) + '/jake/build'
@@ -28,15 +32,8 @@ require File.dirname(__FILE__) + '/jake/buildable'
 require File.dirname(__FILE__) + '/jake/package'
 require File.dirname(__FILE__) + '/jake/bundle'
 
-class JakeHelper
-  def get_binding
-    binding
-  end
-end
-
 def jake(name, &block)
-  puts "New helper: #{name}"
-  JakeHelper.class_eval do
+  Jake::Helper.class_eval do
     define_method(name, &block)
   end
 end

@@ -28,10 +28,9 @@ module Jake
     end
     
     def header
-      text = @config[:header] ?
+      @config[:header] ?
           Jake.read("#{ directory }/#{ @config[:header] }") :
           @build.header
-      text + "\n"
     end
     
     def packer_settings
@@ -46,8 +45,8 @@ module Jake
       
       path, min_path = build_path, minified_build_path
       [path, min_path].each { |p| FileUtils.mkdir_p(File.dirname(p)) }
-      File.open(path, 'wb') { |f| f.write( (header + source).strip ) }
-      File.open(min_path, 'wb') { |f| f.write( (header + minified).strip ) }
+      File.open(path, 'wb') { |f| f.write( (header + "\n" + source).strip ) }
+      File.open(min_path, 'wb') { |f| f.write( (header + "\n" + minified).strip ) }
       
       [path, min_path].each do |p|
         puts "  -- created #{p}, #{ (File.size(p)/1024.0).ceil } kb"
