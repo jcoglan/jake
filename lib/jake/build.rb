@@ -6,7 +6,7 @@ module Jake
     
     DEFAULT_LAYOUT = 'together'
     
-    attr_reader :helper
+    attr_reader :helper, :builds
     
     def initialize(dir, config = nil)
       @dir = File.expand_path(dir)
@@ -17,6 +17,8 @@ module Jake
       
       helpers = "#{dir}/#{HELPER_FILE}"
       load helpers if File.file?(helpers)
+      
+      @builds = @config[:builds] || {:src => false, :min => @config[:packer]}
       
       @packages = @config[:packages].inject({}) do |pkgs, (name, conf)|
         pkgs[name] = Package.new(self, name, conf)
@@ -52,8 +54,8 @@ module Jake
           ""
     end
     
-    def packer_settings
-      @config[:packer] || {}
+    def packer_settings(build_name)
+      @builds[build_name] || false
     end
     
     def layout

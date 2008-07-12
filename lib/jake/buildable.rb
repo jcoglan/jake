@@ -19,16 +19,10 @@ module Jake
       "#{ @build.source_directory }/#{ @config[:directory] }"
     end
     
-    def build_path
+    def build_path(build_name)
       @build.layout == 'together' ?
-          "#{ @build.build_directory }/#{ @name }-src.js" :
-          "#{ @build.build_directory }/src/#{ @name }.js"
-    end
-    
-    def minified_build_path
-      @build.layout == 'together' ?
-          "#{ @build.build_directory }/#{ @name }-min.js" :
-          "#{ @build.build_directory }/min/#{ @name }.js"
+          "#{ @build.build_directory }/#{ @name }-#{ build_name }.js" :
+          "#{ @build.build_directory }/#{ build_name }/#{ @name }.js"
     end
     
     def header
@@ -37,23 +31,24 @@ module Jake
           @build.header
     end
     
-    def packer_settings
-      {}.merge(@build.packer_settings).merge(@config[:packer] || {})
+    def packer_settings(build_name)
+      global = @build.packer_settings(build_name)
+      local  = @config[:packer]
+      return false if global == false or local == false
+      {}.merge(global || {}).merge(local || {})
     end
     
     def write!
       puts "\nBuilding package #{@name}"
       puts "  -- directory: #{ directory }"
       puts "  -- files:     #{ @config[:files].join(', ') }"
-      puts "  -- settings:  #{ packer_settings.inspect }"
       
-      path, min_path = build_path, minified_build_path
-      [path, min_path].each { |p| FileUtils.mkdir_p(File.dirname(p)) }
-      File.open(path, 'wb') { |f| f.write( (header + "\n" + source).strip ) }
-      File.open(min_path, 'wb') { |f| f.write( (header + "\n" + minified).strip ) }
-      
-      [path, min_path].each do |p|
-        puts "  -- created #{p}, #{ (File.size(p)/1024.0).ceil } kb"
+      @build.builds.each do |name, settings|
+        settings = packer_settings(name)
+        code = settings ? Packr.pack(source, settings) : source
+        path = build_path(name)
+        FileUtils.mkdir_p(File.dirname(path))
+        File.open(path, 'wb') { |f| f.write( (header + "\n" + code).strip ) }
       end
     end
     
