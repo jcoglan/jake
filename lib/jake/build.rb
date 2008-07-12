@@ -4,11 +4,11 @@ require 'fileutils'
 module Jake
   class Build
     
-    def initialize(dir)
+    def initialize(dir, config = nil)
       @dir = File.expand_path(dir)
       
       path = "#{dir}/#{CONFIG_FILE}"
-      @config = Jake.symbolize_hash( YAML.load(File.read(path)) )
+      @config = Jake.symbolize_hash( config || YAML.load(File.read(path)) )
       
       helpers = "#{dir}/#{HELPER_FILE}"
       load helpers if File.file?(helpers)
