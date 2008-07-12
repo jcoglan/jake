@@ -29,7 +29,6 @@ module Jake
     end
     
     def run!
-      FileUtils.rm_rf(build_directory)
       @packages.each { |name, pkg| pkg.write! }
       @bundles.each  { |name, pkg| pkg.write! }
     end
