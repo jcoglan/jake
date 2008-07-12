@@ -23,6 +23,7 @@ module Jake
   end
   
   class Helper
+    attr_accessor :build
     def get_binding; binding; end
   end
 end

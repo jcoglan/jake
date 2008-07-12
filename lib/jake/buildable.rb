@@ -13,6 +13,7 @@ module Jake
       when String then {:files => [config]}
       when Array  then {:files => config}
       end
+      @code = {}
     end
     
     def directory
@@ -44,11 +45,10 @@ module Jake
       puts "  -- files:     #{ @config[:files].join(', ') }"
       
       @build.builds.each do |name, settings|
-        settings = packer_settings(name)
-        code = settings ? Packr.pack(source, settings) : source
+        @build.helper.build = name
         path = build_path(name)
         FileUtils.mkdir_p(File.dirname(path))
-        File.open(path, 'wb') { |f| f.write( (header + "\n" + code).strip ) }
+        File.open(path, 'wb') { |f| f.write( (header + "\n" + code(name)).strip ) }
       end
     end
     

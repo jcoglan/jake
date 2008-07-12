@@ -4,10 +4,14 @@ module Jake
   class Package < Buildable
     
     def source
-      return @source if @source
-      code = @config[:files].map { |path| Jake.read("#{ directory }/#{ path }") }.join("\n")
-      template = ERB.new(code)
-      @source = template.result(@build.helper.get_binding)
+      @source ||= @config[:files].map { |path| Jake.read("#{ directory }/#{ path }") }.join("\n")
+    end
+    
+    def code(name)
+      return @code[name] if @code[name]
+      settings = packer_settings(name)
+      output = ERB.new(source).result(@build.helper.get_binding)
+      @code[name] ||= settings ? Packr.pack(output, settings) : output
     end
     
     def header
