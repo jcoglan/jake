@@ -4,8 +4,13 @@ require 'fileutils'
 module Jake
   class Build
     
+    DEFAULT_LAYOUT = 'together'
+    
+    attr_reader :helper
+    
     def initialize(dir, config = nil)
       @dir = File.expand_path(dir)
+      @helper = Helper.new
       
       path = "#{dir}/#{CONFIG_FILE}"
       @config = Jake.symbolize_hash( config || YAML.load(File.read(path)) )
@@ -49,6 +54,10 @@ module Jake
     
     def packer_settings
       @config[:packer] || {}
+    end
+    
+    def layout
+      @config[:layout] || DEFAULT_LAYOUT
     end
     
   end

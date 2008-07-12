@@ -20,11 +20,15 @@ module Jake
     end
     
     def build_path
-      "#{ @build.build_directory }/#{ @name }.js"
+      @build.layout == 'together' ?
+          "#{ @build.build_directory }/#{ @name }-src.js" :
+          "#{ @build.build_directory }/src/#{ @name }.js"
     end
     
     def minified_build_path
-      "#{ @build.build_directory }/#{ @name }-min.js"
+      @build.layout == 'together' ?
+          "#{ @build.build_directory }/#{ @name }-min.js" :
+          "#{ @build.build_directory }/min/#{ @name }.js"
     end
     
     def header

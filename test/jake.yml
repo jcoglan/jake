@@ -2,6 +2,7 @@
 build_directory:  build
 source_directory: source
 header:           COPYRIGHT
+layout:           apart
 packer:
   shrink_vars:    true
   private:        true
