@@ -3,15 +3,22 @@ require 'erb'
 module Jake
   class Package < Buildable
     
+    def files
+      @config[:files].map do |path|
+        path = "#{ directory }/#{ path }"
+        File.file?(path) ? path : "#{ path }.js"
+      end
+    end
+    
     def source
-      @source ||= @config[:files].map { |path| Jake.read("#{ directory }/#{ path }") }.join("\n")
+      @source ||= files.map { |path| Jake.read(path) }.join("\n")
     end
     
     def code(name)
       return @code[name] if @code[name]
       settings = packer_settings(name)
       output = ERB.new(source).result(@build.helper.get_binding)
-      @code[name] ||= settings ? Packr.pack(output, settings) : output
+      @code[name] = settings ? Packr.pack(output, settings) : output
     end
     
     def header

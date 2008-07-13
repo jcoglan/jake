@@ -26,6 +26,13 @@ module Jake
           "#{ @build.build_directory }/#{ build_name }/#{ @name }.js"
     end
     
+    def build_needed?(name)
+      path = build_path(name)
+      return true unless File.file?(path)
+      build_time = File.mtime(path)
+      files.any? { |path| File.mtime(path) > build_time }
+    end
+    
     def header
       @config[:header] ?
           Jake.read("#{ directory }/#{ @config[:header] }") :
@@ -41,14 +48,21 @@ module Jake
     
     def write!
       puts "\nBuilding package #{@name}"
-      puts "  -- directory: #{ directory }"
-      puts "  -- files:     #{ @config[:files].join(', ') }"
       
       @build.builds.each do |name, settings|
+        unless build_needed?(name)
+          puts "  -- build '#{ name }' up-to-date"
+          next
+        end
+        
         @build.helper.build = name
         path = build_path(name)
         FileUtils.mkdir_p(File.dirname(path))
         File.open(path, 'wb') { |f| f.write( (header + "\n" + code(name)).strip ) }
+        
+        size = (File.size(path)/1024.0).ceil
+        path = path.sub(@build.build_directory, '')
+        puts "  -- build '#{ name }' created #{ path }, #{ size } kb"
       end
     end
     

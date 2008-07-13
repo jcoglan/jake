@@ -1,6 +1,10 @@
 module Jake
   class Bundle < Buildable
     
+    def files
+      @config[:files].map { |pkg| @build.package(pkg).files }.flatten
+    end
+    
     def source
       @source ||= @config[:files].map { |pkg|
         @build.package(pkg).source
