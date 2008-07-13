@@ -4,8 +4,10 @@ module Jake
   CONFIG_FILE = 'jake.yml'
   HELPER_FILE = 'Jakefile'
   
-  def self.build(path)
-    Build.new(path).run!
+  def self.build(path, force = false)
+    build = Build.new(path)
+    build.force! if force
+    build.run!
   end
   
   def self.read(path)

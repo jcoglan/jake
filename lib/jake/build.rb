@@ -31,6 +31,14 @@ module Jake
       end
     end
     
+    def force!
+      @forced = true
+    end
+    
+    def forced?
+      !!@forced
+    end
+    
     def package(name)
       @packages[name.to_sym]
     end

@@ -27,6 +27,7 @@ module Jake
     end
     
     def build_needed?(name)
+      return true if @build.forced?
       path = build_path(name)
       return true unless File.file?(path)
       build_time = File.mtime(path)

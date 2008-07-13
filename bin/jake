@@ -1,6 +1,31 @@
 #!/usr/bin/ruby
 require 'rubygems'
+require 'oyster'
 require 'jake'
 
-Jake.build(File.expand_path(ARGV.first || '.'))
+spec = Oyster.spec do
+  name    'jake -- automated build tool for JavaScript projects'
+  
+  synopsis <<-EOS
+  jake [--force] [DIR]
+  EOS
+  
+  description <<-EOS
+  Jake builds JavaScript library packages from source code using PackR and
+  ERB. Use --force to force a rebuild of files deemed up-to-date. DIR specifies
+  where to find the jake.yml configuration file, by default this is set to the
+  current working directory.
+  EOS
+  
+  flag :force, :default => false,
+  :desc => 'Force a rebuild even if files are up-to-date'
+  
+  author 'James Coglan <jcoglan@googlemail.com>'
+end
+
+begin; opts = spec.parse
+rescue Oyster::HelpRendered; exit
+end
+
+Jake.build(File.expand_path(opts[:unclaimed].first || '.'), opts[:force])
 
