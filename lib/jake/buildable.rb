@@ -48,13 +48,10 @@ module Jake
     end
     
     def write!
-      puts "\nBuilding package #{@name}"
+      puts "Package #{@name}..."
       
       @build.builds.each do |name, settings|
-        unless build_needed?(name)
-          puts "  -- build '#{ name }' up-to-date"
-          next
-        end
+        next unless build_needed?(name)
         
         @build.helper.build = name
         path = build_path(name)
