@@ -13,6 +13,7 @@ packages:
     header:       COPYRIGHT
     packer:
       private:    false
+      base62:     true
     files:
         - class
         - method_chain

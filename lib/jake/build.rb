@@ -6,7 +6,8 @@ module Jake
     
     DEFAULT_LAYOUT = 'together'
     
-    attr_reader :helper, :builds
+    include Enumerable
+    attr_reader :helper
     
     def initialize(dir, config = nil)
       @dir = File.expand_path(dir)
@@ -29,6 +30,10 @@ module Jake
         pkgs[name] = Bundle.new(self, name, conf)
         pkgs
       end
+    end
+    
+    def each(&block)
+      @builds.each(&block)
     end
     
     def force!

@@ -10,7 +10,8 @@ module Jake
     end
     
     def code(name)
-      @code[name] ||= @config[:files].map { |pkg| @build.package(pkg).code(name) }.join("\n\n\n")
+      joiner = (packer_settings(name) == false) ? "\n\n\n" : "\n"
+      @code[name] ||= @config[:files].map { |pkg| @build.package(pkg).code(name) }.join(joiner)
     end
     
   end

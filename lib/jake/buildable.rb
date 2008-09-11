@@ -35,9 +35,10 @@ module Jake
     end
     
     def header
-      @config[:header] ?
+      content = @config[:header] ?
           Jake.read("#{ directory }/#{ @config[:header] }") :
           @build.header
+      ERB.new(content).result(@build.helper.get_binding)
     end
     
     def packer_settings(build_name)
@@ -50,7 +51,7 @@ module Jake
     def write!
       puts "Package #{@name}..."
       
-      @build.builds.each do |name, settings|
+      @build.each do |name, settings|
         next unless build_needed?(name)
         
         @build.helper.build = name
