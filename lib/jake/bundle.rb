@@ -6,15 +6,11 @@ module Jake
     end
     
     def source
-      @source ||= @config[:files].map { |pkg|
-        @build.package(pkg).source
-      }.join("\n")
+      @source ||= @config[:files].map { |pkg| @build.package(pkg).source }.join("\n\n\n")
     end
     
     def code(name)
-      @code[name] ||= @config[:files].map { |pkg|
-        @build.package(pkg).code(name)
-      }.join("\n")
+      @code[name] ||= @config[:files].map { |pkg| @build.package(pkg).code(name) }.join("\n\n\n")
     end
     
   end

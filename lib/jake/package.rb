@@ -11,7 +11,7 @@ module Jake
     end
     
     def source
-      @source ||= files.map { |path| Jake.read(path) }.join("\n")
+      @source ||= files.map { |path| Jake.read(path) }.join("\n\n\n")
     end
     
     def code(name)

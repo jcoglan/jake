@@ -56,7 +56,7 @@ module Jake
         @build.helper.build = name
         path = build_path(name)
         FileUtils.mkdir_p(File.dirname(path))
-        File.open(path, 'wb') { |f| f.write( (header + "\n" + code(name)).strip ) }
+        File.open(path, 'wb') { |f| f.write( (header + "\n\n" + code(name)).strip ) }
         
         size = (File.size(path)/1024.0).ceil
         path = path.sub(@build.build_directory, '')
