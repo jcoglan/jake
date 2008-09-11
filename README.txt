@@ -81,7 +81,8 @@ This configuration would match a project layed out as follows:
 == Requirements
 
 * Rubygems
-* PackR (should be installed automatically for you)
+* Oyster
+* PackR
 
 == Installation
 
