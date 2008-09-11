@@ -2,3 +2,6 @@ jake :get_version do
   '0.2.0'
 end
 
+jake :after_build do |build|
+  puts build.package('core').build_path('src')
+end

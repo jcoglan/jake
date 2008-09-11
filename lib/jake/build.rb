@@ -46,6 +46,7 @@ module Jake
     def run!
       @packages.each { |name, pkg| pkg.write! }
       @bundles.each  { |name, pkg| pkg.write! }
+      @helper.after_build(self) if @helper.respond_to? :after_build
     end
     
     def build_directory
