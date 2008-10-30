@@ -48,6 +48,10 @@ module Jake
       @packages[name.to_sym]
     end
     
+    def bundle(name)
+      @bundles[name.to_sym]
+    end
+    
     def run!
       @packages.each { |name, pkg| pkg.write! }
       @bundles.each  { |name, pkg| pkg.write! }
