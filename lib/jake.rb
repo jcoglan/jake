@@ -1,5 +1,5 @@
 module Jake
-  VERSION = '0.9.1'
+  VERSION = '0.9.2'
   
   CONFIG_FILE = 'jake.yml'
   HELPER_FILE = 'Jakefile'
@@ -26,14 +26,13 @@ module Jake
   
   class Helper
     attr_accessor :build
-    def get_binding; binding; end
+    def scope; binding; end
   end
 end
 
-require File.dirname(__FILE__) + '/jake/build'
-require File.dirname(__FILE__) + '/jake/buildable'
-require File.dirname(__FILE__) + '/jake/package'
-require File.dirname(__FILE__) + '/jake/bundle'
+%w(build buildable package bundle).each do |file|
+  require File.dirname(__FILE__) + '/jake/' + file
+end
 
 def jake(name, &block)
   Jake::Helper.class_eval do

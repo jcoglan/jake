@@ -21,8 +21,9 @@ module Jake
     end
     
     def build_path(build_name)
+      suffix = @build.use_suffix?(build_name) ? "-#{ build_name }" : ""
       @build.layout == 'together' ?
-          "#{ @build.build_directory }/#{ @name }-#{ build_name }.js" :
+          "#{ @build.build_directory }/#{ @name }#{ suffix }.js" :
           "#{ @build.build_directory }/#{ build_name }/#{ @name }.js"
     end
     
@@ -38,7 +39,7 @@ module Jake
       content = @config[:header] ?
           Jake.read("#{ directory }/#{ @config[:header] }") :
           @build.header
-      ERB.new(content).result(@build.helper.get_binding)
+      ERB.new(content).result(@build.helper.scope).strip
     end
     
     def packer_settings(build_name)

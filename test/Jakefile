@@ -3,5 +3,5 @@ jake :get_version do
 end
 
 jake :after_build do |build|
-  puts build.package('core').build_path('src')
+  puts "After hook: " + build.package(:core).build_path(:source)
 end

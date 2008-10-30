@@ -51,7 +51,7 @@ module Jake
     def run!
       @packages.each { |name, pkg| pkg.write! }
       @bundles.each  { |name, pkg| pkg.write! }
-      @helper.after_build(self) if @helper.respond_to? :after_build
+      @helper.after_build(self) if @helper.respond_to?(:after_build)
     end
     
     def build_directory
@@ -69,7 +69,12 @@ module Jake
     end
     
     def packer_settings(build_name)
-      @builds[build_name] || false
+      build = @builds[build_name.to_sym]
+      build[:packer].nil? ? build : build[:packer]
+    end
+    
+    def use_suffix?(build_name)
+      @builds[build_name.to_sym][:suffix] != false
     end
     
     def layout
