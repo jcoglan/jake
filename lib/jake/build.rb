@@ -45,11 +45,7 @@ module Jake
     end
     
     def package(name)
-      @packages[name.to_sym]
-    end
-    
-    def bundle(name)
-      @bundles[name.to_sym]
+      @packages[name.to_sym] || @bundles[name.to_sym]
     end
     
     def run!
