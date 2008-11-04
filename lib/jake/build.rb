@@ -70,11 +70,14 @@ module Jake
     
     def packer_settings(build_name)
       build = @builds[build_name.to_sym]
+      return false unless build
       build[:packer].nil? ? build : build[:packer]
     end
     
     def use_suffix?(build_name)
-      @builds[build_name.to_sym][:suffix] != false
+      build = @builds[build_name.to_sym]
+      return true unless build
+      build[:suffix] != false
     end
     
     def layout
