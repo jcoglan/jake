@@ -14,7 +14,9 @@ module Jake
       @helper = Helper.new
       
       path = "#{dir}/#{CONFIG_FILE}"
-      @config = Jake.symbolize_hash( config || YAML.load(File.read(path)) )
+      yaml = File.read(path)
+      
+      @config = Jake.symbolize_hash( config || YAML.load(ERB.new(yaml).result(@helper.scope)) )
       
       helpers = "#{dir}/#{HELPER_FILE}"
       load helpers if File.file?(helpers)

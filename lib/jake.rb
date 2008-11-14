@@ -30,6 +30,8 @@ module Jake
   end
 end
 
+require 'erb'
+
 %w(build buildable package bundle).each do |file|
   require File.dirname(__FILE__) + '/jake/' + file
 end

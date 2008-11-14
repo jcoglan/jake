@@ -1,5 +1,3 @@
-require 'erb'
-
 module Jake
   class Package < Buildable
     
