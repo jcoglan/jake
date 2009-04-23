@@ -27,5 +27,5 @@ begin; opts = spec.parse
 rescue Oyster::HelpRendered; exit
 end
 
-Jake.build(File.expand_path(opts[:unclaimed].first || '.'), opts[:force])
+Jake.build(File.expand_path(opts[:unclaimed].first || '.'), opts)
 

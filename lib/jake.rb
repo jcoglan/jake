@@ -1,12 +1,12 @@
 module Jake
-  VERSION = '0.9.2'
+  VERSION = '0.9.3'
   
   CONFIG_FILE = 'jake.yml'
   HELPER_FILE = 'Jakefile'
   
-  def self.build(path, force = false)
-    build = Build.new(path)
-    build.force! if force
+  def self.build(path, options = {})
+    build = Build.new(path, nil, options)
+    build.force! if options[:force]
     build.run!
   end
   
@@ -26,6 +26,12 @@ module Jake
   
   class Helper
     attr_accessor :build
+    attr_reader :options
+    
+    def initialize(options = {})
+      @options = options
+    end
+    
     def scope; binding; end
   end
 end

@@ -9,9 +9,9 @@ module Jake
     include Enumerable
     attr_reader :helper
     
-    def initialize(dir, config = nil)
+    def initialize(dir, config = nil, options = {})
       @dir = File.expand_path(dir)
-      @helper = Helper.new
+      @helper = Helper.new(options)
       
       path = "#{dir}/#{CONFIG_FILE}"
       yaml = File.read(path)
