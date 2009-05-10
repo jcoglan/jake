@@ -16,7 +16,14 @@ module Jake
       @code = {}
     end
     
+    def parent
+      return nil unless @config[:extends]
+      @parent ||= @build.package(@config[:extends])
+    end
+    
     def directory
+      dir = @config[:directory]
+      return parent.directory if parent && !dir
       "#{ @build.source_directory }/#{ @config[:directory] }"
     end
     
@@ -38,13 +45,14 @@ module Jake
     def header
       content = @config[:header] ?
           Jake.read("#{ directory }/#{ @config[:header] }") :
-          @build.header
+          (parent ? parent.header : @build.header)
       ERB.new(content).result(@build.helper.scope).strip
     end
     
     def packer_settings(build_name)
       global = @build.packer_settings(build_name)
       local  = @config[:packer]
+      return parent.packer_settings(build_name) if parent && !local
       return false if global == false or local == false
       {}.merge(global || {}).merge(local || {})
     end

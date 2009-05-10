@@ -1,7 +1,7 @@
 #!/usr/bin/ruby
 require 'rubygems'
 require 'oyster'
-require 'jake'
+require File.dirname(__FILE__) + '/../lib/jake'
 
 spec = Oyster.spec do
   name    'jake -- automated build tool for JavaScript projects'

@@ -2,7 +2,8 @@ module Jake
   class Bundle < Buildable
     
     def files
-      @config[:files].map { |pkg| @build.package(pkg).files }.flatten
+      base = parent ? parent.files : []
+      base + @config[:files].map { |pkg| @build.package(pkg).files }.flatten
     end
     
     def source

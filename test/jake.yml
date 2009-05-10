@@ -76,6 +76,12 @@ packages:
       - cross_domain
       - uri
       
+  pkg/http-history:
+    extends:      pkg/http
+    directory:    packages/history
+    files:
+      - history
+      
   pkg/history:
     directory:    packages/history
     requires:
