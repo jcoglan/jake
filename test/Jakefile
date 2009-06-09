@@ -4,7 +4,7 @@ end
 
 FILES = []
 
-jake_hook :file_created do |build, package, build_name, path|
+jake_hook :file_created do |package, build, path|
   FILES << File.basename(path)
 end
 
