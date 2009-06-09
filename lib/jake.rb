@@ -1,12 +1,16 @@
 module Jake
-  VERSION = '0.9.3'
+  VERSION = '0.9.4'
   
   CONFIG_FILE = 'jake.yml'
   HELPER_FILE = 'Jakefile'
   
-  def self.build(path, options = {})
+  def self.build!(path, options = {})
     build = Build.new(path, nil, options)
     build.run!
+  end
+  
+  def self.clear_hooks!
+    Build.delete_observers
   end
   
   def self.read(path)

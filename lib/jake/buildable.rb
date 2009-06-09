@@ -68,6 +68,8 @@ module Jake
         FileUtils.mkdir_p(File.dirname(path))
         File.open(path, 'wb') { |f| f.write( (header + "\n\n" + code(name)).strip ) }
         
+        @build.class.notify_observers(:file_created, @build, @name, name, path)
+        
         size = (File.size(path)/1024.0).ceil
         path = path.sub(@build.build_directory, '')
         puts "  -- build '#{ name }' created #{ path }, #{ size } kb"

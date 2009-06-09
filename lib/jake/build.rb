@@ -60,7 +60,7 @@ module Jake
     def run!
       @packages.each { |name, pkg| pkg.write! }
       @bundles.each  { |name, pkg| pkg.write! }
-      self.class.notify_observers(:after_build, self)
+      self.class.notify_observers(:build_complete, self)
     end
     
     def build_directory

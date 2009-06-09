@@ -2,9 +2,17 @@ jake_helper :version do
   "0.5.0"
 end
 
-jake_hook :after_build do |build|
-  File.open(File.join(build.build_dir, 'README'), 'w') do |f|
-    f.write('Should be generated after build')
+FILES = []
+
+jake_hook :file_created do |build, package, build_name, path|
+  FILES << File.basename(path)
+end
+
+jake_hook :build_complete do |build|
+  write = lambda do |file, content|
+    File.open(File.join(build.build_dir, file), 'w') { |f| f.write(content) }
   end
+  write['README', 'Should be generated after build']
+  write['LISTING', FILES.sort * "\n"]
 end
 
