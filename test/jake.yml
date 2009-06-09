@@ -8,6 +8,7 @@ builds:
   src:
     packer:         false
     suffix:         false
+header:             head
 packages:
   basic:            basic
   ext:
@@ -20,6 +21,7 @@ packages:
     - foo/foo
   sub/path/bar:
     directory:      foo
+    header:         ../head2
     packer:
       shrink_vars:  false
     files:
