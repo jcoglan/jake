@@ -15,4 +15,12 @@ packages:
       private:      false
     files:
       - basic-ext
+  sub/dir/foo:
+    - foo/foo
+  sub/path/bar:
+    directory:      foo
+    packer:
+      shrink_vars:  false
+    files:
+      - bar
 
