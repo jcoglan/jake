@@ -42,7 +42,7 @@ require 'erb'
   require File.dirname(__FILE__) + '/jake/' + file
 end
 
-def jake(name, &block)
+def helper(name, &block)
   Jake::Helper.class_eval do
     define_method(name, &block)
   end

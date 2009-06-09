@@ -1,7 +1,4 @@
-jake :get_version do
-  '0.2.0'
+helper :version do
+  "0.5.0"
 end
 
-jake :after_build do |build|
-  puts "After hook: " + build.package(:core).build_path(:source)
-end

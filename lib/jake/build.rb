@@ -43,7 +43,7 @@ module Jake
     end
     
     def forced?
-      !!@forced
+      defined?(@forced)
     end
     
     def package(name)
