@@ -3,9 +3,9 @@ require "jake"
 require "fileutils"
 require "find"
 
-DIR = File.dirname(__FILE__)
-
 class TestJake < Test::Unit::TestCase
+  DIR = File.dirname(__FILE__)
+  
   def setup
     FileUtils.rm_rf(File.join(DIR, 'output'))
   end

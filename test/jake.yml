@@ -17,6 +17,11 @@ packages:
       private:      false
     files:
       - basic-ext
+    meta:
+      provides:
+        - Basic
+      requires:
+        - Foo
   sub/dir/foo:
     - foo/foo
   sub/path/bar:

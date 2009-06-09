@@ -57,6 +57,10 @@ module Jake
       {}.merge(global || {}).merge(local || {})
     end
     
+    def meta
+      @config[:meta] || {}
+    end
+    
     def write!
       puts "Package #{@name}..."
       

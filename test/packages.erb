@@ -1,0 +1,8 @@
+JS.Packages(function() { with(this) {
+<% DEPS.each do |path, meta| %>
+    file('<%= path %>')
+        .provides(<%= (meta[:provides] || []).map { |p| p.inspect } * ', ' %>)
+        .requires(<%= (meta[:requires] || []).map { |p| p.inspect } * ', ' %>);
+<% end %>
+}});
+
