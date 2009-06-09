@@ -16,11 +16,12 @@ module Jake
     attr_reader :helper
     
     def initialize(dir, config = nil, options = {})
-      @dir = File.expand_path(dir)
+      @dir    = File.expand_path(dir)
       @helper = Helper.new(options)
+      force! if options[:force]
       
-      path = "#{dir}/#{CONFIG_FILE}"
-      yaml = File.read(path)
+      path    = "#{dir}/#{CONFIG_FILE}"
+      yaml    = File.read(path)
       
       @config = Jake.symbolize_hash( config || YAML.load(ERB.new(yaml).result(@helper.scope)) )
       

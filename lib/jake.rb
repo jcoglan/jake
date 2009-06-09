@@ -6,7 +6,6 @@ module Jake
   
   def self.build(path, options = {})
     build = Build.new(path, nil, options)
-    build.force! if options[:force]
     build.run!
   end
   
