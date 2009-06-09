@@ -1,8 +1,14 @@
 require 'yaml'
 require 'fileutils'
+require 'observer'
 
 module Jake
   class Build
+    extend Observable
+    def self.notify_observers(*args)
+      self.changed(true)
+      super
+    end
     
     DEFAULT_LAYOUT = 'together'
     
@@ -53,16 +59,18 @@ module Jake
     def run!
       @packages.each { |name, pkg| pkg.write! }
       @bundles.each  { |name, pkg| pkg.write! }
-      @helper.after_build(self) if @helper.respond_to?(:after_build)
+      self.class.notify_observers(:after_build, self)
     end
     
     def build_directory
       "#{ @dir }/#{ @config[:build_directory] || '.' }"
     end
+    alias :build_dir :build_directory
     
     def source_directory
       "#{ @dir }/#{ @config[:source_directory] || '.' }"
     end
+    alias :source_dir :source_directory
     
     def header
       @config[:header] ?

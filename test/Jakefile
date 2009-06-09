@@ -1,4 +1,10 @@
-helper :version do
+jake_helper :version do
   "0.5.0"
+end
+
+jake_hook :after_build do |build|
+  File.open(File.join(build.build_dir, 'README'), 'w') do |f|
+    f.write('Should be generated after build')
+  end
 end
 

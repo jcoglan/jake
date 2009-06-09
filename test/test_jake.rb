@@ -16,7 +16,12 @@ class TestJake < Test::Unit::TestCase
     actual   = File.join(DIR, 'output')
     Find.find(expected) do |path|
       next unless File.file?(path)
-      assert_equal File.read(path).strip, File.read(actual + path.gsub(expected, ''))
+      actual_path = actual + path.gsub(expected, '')
+      
+      flunk "File #{actual_path} is missing" unless File.file?(actual_path)
+      
+      assert_equal File.read(path).strip, File.read(actual_path),
+                   "File #{actual_path} does not match #{path}"
     end
   end
 end
