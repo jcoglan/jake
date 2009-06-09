@@ -1,5 +1,5 @@
 Basic = {
-  VERSION:  "<%= version %>",
+  VERSION:  "<%= version %>-<%= build %>",
   
   function(something) {
     var myVar = 4;
