@@ -9,4 +9,10 @@ builds:
     packer:         false
 packages:
   basic:            basic
+  ext:
+    extends:        basic
+    packer:
+      private:      false
+    files:
+      - basic-ext
 

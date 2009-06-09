@@ -63,7 +63,7 @@ module Jake
       @build.each do |name, settings|
         next unless build_needed?(name)
         
-        @build.helper.build = name
+        @build.helper.build = name.to_s
         path = build_path(name)
         FileUtils.mkdir_p(File.dirname(path))
         File.open(path, 'wb') { |f| f.write( (header + "\n\n" + code(name)).strip ) }

@@ -3,7 +3,7 @@ Basic = {
   
   function(something) {
     var myVar = 4;
-    return myVar + something;
+    return myVar + this._foo + something;
   }
 };
 

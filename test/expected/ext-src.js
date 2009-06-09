@@ -6,3 +6,6 @@ Basic = {
     return myVar + this._foo + something;
   }
 };
+
+
+Basic.Ext = "SRC";

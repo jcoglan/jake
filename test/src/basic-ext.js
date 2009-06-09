@@ -1,0 +1,2 @@
+Basic.Ext = "<%= build.upcase %>";
+
