@@ -26,4 +26,8 @@ packages:
       shrink_vars:  false
     files:
       - bar
+bundles:
+  combo/box:
+    - sub/dir/foo
+    - ext
 
