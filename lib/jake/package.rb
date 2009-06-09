@@ -20,11 +20,6 @@ module Jake
       @code[name] = settings ? Packr.pack(output, settings) : output
     end
     
-    def header
-      reqs = @config[:requires] || []
-      [super, *reqs.map { |r| "// @require #{r}" }].join("\n")
-    end
-    
   end
 end
 
