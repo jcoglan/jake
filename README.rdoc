@@ -137,6 +137,8 @@ The full list of package options is as follows:
   for the current build. If a build listed above uses <tt>packer: false</tt>,
   this takes precedence over package-specific instructions. Typically used
   to override options for the minified build.
+* +meta+ - should be a YAML dictionary containing arbitrary data useful to
+  user-defined build events. May be omitted. See 'Event hooks' below.
 
 For example, here's a package listing that uses all the options:
 
@@ -209,6 +211,35 @@ Jake has a built-in helper called +build+ that returns the current build
 name. When built, the output would contain the following:
 
   MyJavaScriptLib.VERSION = "1.0-src";    // or "1.0-min" for the 'min' build
+
+
+=== Event hooks
+
+The +Jakefile+ may also define event hooks that are fired during a build when
+interesting things happen. This allows you to extend your build process using
+configuration data from Jake. We currently have two events:
+
++file_created+ is fired whenever a new build file is created. The callback is
+passed the +Buildable+ package object, the current build name (+src+ or +min+
+using the above examples), and the full path to the newly created file.
+The package object may contain metadata (set using the +meta+ option, see
+above) which you can use for further code generation.
+
++build_complete+ is fired after a build has finished running, that is after
+all sets of minification options have been run. At this point you can use any
+metadata you've gathered to generate more code, copy files to your distribution
+directory, etc.
+
+  $register = {}
+  
+  jake_hook :file_created do |pkg, build_name, path|
+    $register[path] = pkg.meta
+  end
+  
+  jake_hook :build_complete do |build|
+    FileUtils.cp 'README', build.build_directory + '/README'
+    # generate code from $register
+  end
 
 
 == License

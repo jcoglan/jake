@@ -1,24 +1,39 @@
+require 'erb'
+require 'fileutils'
+require 'observer'
+require 'yaml'
+require 'rubygems'
+require 'packr'
+
 module Jake
   VERSION = '0.9.4'
   
   CONFIG_FILE = 'jake.yml'
   HELPER_FILE = 'Jakefile'
+  EXTENSION   = '.js'
   
+  # Runs a build in the given directory. The directory must contain a jake.yml
+  # file, and may contain a Jakefile. See README for example YAML configurations.
   def self.build!(path, options = {})
-    build = Build.new(path, nil, options)
+    build = Build.new(path, options)
     build.run!
   end
   
+  # Removes all registered build event hooks.
   def self.clear_hooks!
     Build.delete_observers
   end
   
+  # Returns the contents of the given path, which may be missing a .js extension.
   def self.read(path)
     path = File.expand_path(path)
-    path = File.file?(path) ? path : ( File.file?("#{path}.js") ? "#{path}.js" : nil )
-    path and File.read(path).strip
+    [path, "#{path}#{EXTENSION}"].each do |p|
+      return File.read(p).strip if File.file?(p)
+    end
+    return nil
   end
   
+  # Returns a copy of the given hash with the keys cast to symbols.
   def self.symbolize_hash(hash, deep = true)
     hash.inject({}) do |output, (key, value)|
       value = Jake.symbolize_hash(value) if deep and value.is_a?(Hash)
@@ -27,35 +42,13 @@ module Jake
     end
   end
   
-  class Helper
-    attr_accessor :build
-    attr_reader :options
-    
-    def initialize(options = {})
-      @options = options
-    end
-    
-    def scope; binding; end
-  end
-  
-  class Observer
-    def initialize(type, &block)
-      @type, @block = type, block
-      Build.add_observer(self)
-    end
-    
-    def update(*args)
-      @block[*args[1..-1]] if args.first == @type
-    end
-  end
 end
 
-require 'erb'
-
-%w(build buildable package bundle).each do |file|
+%w(helper observer build buildable package bundle).each do |file|
   require File.dirname(__FILE__) + '/jake/' + file
 end
 
+# Adds a helper method that can be called from ERB.
 def jake_helper(name, &block)
   Jake::Helper.class_eval do
     define_method(name, &block)
@@ -63,6 +56,7 @@ def jake_helper(name, &block)
 end
 alias :jake :jake_helper
 
+# Registers an event listener that will fire whenever a build is run.
 def jake_hook(type, &block)
   Jake::Observer.new(type, &block)
 end
