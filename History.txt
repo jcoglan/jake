@@ -1,6 +1,42 @@
-=== 1.0.0 / 2008-07-04
+=== 0.9.4 / 2009-06-TODO
 
-* 1 major enhancement
+* A proper test suite is now in place.
 
-  * Birthday!
+* Helper methods and event hooks and  are now separated. Use `jake_helper`
+  and `jake_hook` instead of just `jake`.
+
+* :after_build event is now called :build_complete, and we added
+  a :file_created event that is called whenever a new package file is
+  written to disk.
+
+* Metadata can be added to packages using the :meta option. This
+  data is available as Package#meta inside event hooks.
+
+
+=== 0.9.3 / 2009-05-10
+
+* Adds an 'extends' option to packages to allow one package to
+  inherit config from another. Useful for making packages that include
+  all the files from another, plus a few extras.
+
+* Helper methods have access to commandline input via `options`.
+
+
+=== 0.9.2 / 2008-11-14
+
+* Allows '-min' suffixes to be omitted.
+
+* Supports use of ERB in the jake.yml file to generate configs.
+
+
+=== 0.9.1 / 2008-09-11
+
+* Adds ERB support to header files.
+
+
+=== 0.9.0 / 2008-09-11
+
+* First release, supports packages, bundles, ERB code generation.
+
+* Supports :after_build event hook for post-build tasks.
 
