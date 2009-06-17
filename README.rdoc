@@ -9,6 +9,16 @@ It allows ERB to be used inside source files to generate code, and provides
 event hooks into the build process so you can extend it for your own needs.
 
 
+== Features
+
+* Concatenate and minify groups of source files for distribution
+* Configured using simple YAML files
+* Easily generate multiple distros with different compression settings
+* Use ERB templating to generate source code
+* Extensible using Ruby/ERB and event hooks during the build process
+* Tested on Ruby 1.8.6, 1.8.7, 1.9.1
+
+
 == Installation
 
   sudo gem install jake
@@ -160,6 +170,10 @@ For example, here's a package listing that uses all the options:
     last:
       packer:
         private:      false
+      meta:
+        requires:
+          - jQuery
+          - GMap2
       files:
         - one_file
         - another_file
