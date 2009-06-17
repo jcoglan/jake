@@ -3,7 +3,7 @@ module Jake
   # build file. There are two subtypes of +Buildable+; a +Package+ takes several
   # source files and produces a build file, and a +Bundle+ takes several +Package+
   # build files to produce another build file. This class should be considered
-  # abstract as some of its method must be filled in by subtypes.
+  # abstract as some of its methods must be filled in by subtypes.
   class Buildable
     
     attr_reader :name

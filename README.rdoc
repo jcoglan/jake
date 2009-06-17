@@ -67,7 +67,7 @@ looks like this:
 
 The build listing, given by the +builds+ option in the config file, lists
 all the builds you want to produce for distribution, and what minification
-settings that build should use. JavaScript projects typically distribute
+settings each build should use. JavaScript projects typically distribute
 both compressed and uncompressed copies of their code to suit both production
 and development environments.
 
