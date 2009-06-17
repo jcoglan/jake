@@ -57,7 +57,7 @@ module Jake
       content = @config[:header] ?
           Jake.read("#{ directory }/#{ @config[:header] }") :
           (parent ? parent.header : @build.header)
-      ERB.new(content).result(@build.helper.scope).strip
+      Jake.erb(content).result(@build.helper.scope).strip
     end
     
     # Returns the PackR settings to use for this package during the given build.

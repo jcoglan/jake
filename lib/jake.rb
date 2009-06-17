@@ -5,6 +5,11 @@ require 'yaml'
 require 'rubygems'
 require 'packr'
 
+begin
+  require 'erubis'
+rescue LoadError
+end
+
 module Jake
   VERSION = '0.9.4'
   
@@ -40,6 +45,11 @@ module Jake
       output[(key.to_sym rescue key) || key] = value
       output
     end
+  end
+  
+  # Returns either an Erubis or ERB instance, depending on what's available.
+  def self.erb(template)
+    defined?(Erubis) ? Erubis::Eruby.new(template) : ERB.new(template)
   end
   
 end

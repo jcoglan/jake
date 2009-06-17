@@ -23,7 +23,7 @@ module Jake
     def code(name)
       return @code[name] if @code[name]
       settings = packer_settings(name)
-      output = ERB.new(source).result(@build.helper.scope)
+      output = Jake.erb(source).result(@build.helper.scope)
       @code[name] = settings ? Packr.pack(output, settings) : output
     end
     
