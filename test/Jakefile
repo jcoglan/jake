@@ -5,8 +5,6 @@ end
 FILES = []
 DEPS  = {}
 
-DIR = File.dirname(__FILE__)
-
 jake_hook :file_created do |package, build, path|
   FILES << File.basename(path)
   DEPS[path] = package.meta if build == :min
@@ -19,6 +17,6 @@ jake_hook :build_complete do |build|
   write['README', 'Should be generated after build']
   write['LISTING', FILES.sort * "\n"]
   
-  write['packages.js', ERB.new(File.read File.join(DIR, 'packages.erb')).result(binding)]
+  write['packages.js', ERB.new(File.read('packages.erb')).result(binding)]
 end
 
