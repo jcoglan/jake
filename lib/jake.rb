@@ -4,6 +4,7 @@ require 'observer'
 require 'yaml'
 require 'rubygems'
 require 'packr'
+require 'eventful'
 
 begin
   require 'erubis'
@@ -54,7 +55,7 @@ module Jake
   
 end
 
-%w(helper observer build buildable package bundle).each do |file|
+%w(helper build buildable package bundle).each do |file|
   require File.dirname(__FILE__) + '/jake/' + file
 end
 
@@ -68,6 +69,6 @@ alias :jake :jake_helper
 
 # Registers an event listener that will fire whenever a build is run.
 def jake_hook(type, &block)
-  Jake::Observer.new(type, &block)
+  Jake::Build.on(type, &block)
 end
 

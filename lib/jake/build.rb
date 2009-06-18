@@ -3,14 +3,7 @@ module Jake
   # is responsible for running the build and provides access to any configuration
   # data used to set up the build.
   class Build
-    extend Observable
-    
-    # Calls all registered +Observer+ instances with any arguments passed in. Note
-    # that it is the +Build+ class that is +Observable+, not its instances.
-    def self.notify_observers(*args)
-      self.changed(true)
-      super
-    end
+    include Eventful
     
     DEFAULT_LAYOUT = 'together'
     
@@ -71,7 +64,7 @@ module Jake
       FileUtils.cd(@dir) do
         @packages.each { |name, pkg| pkg.write! }
         @bundles.each  { |name, pkg| pkg.write! }
-        self.class.notify_observers(:build_complete, self)
+        fire(:build_complete)
       end
     end
     

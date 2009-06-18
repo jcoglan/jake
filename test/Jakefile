@@ -5,9 +5,9 @@ end
 FILES = []
 DEPS  = {}
 
-jake_hook :file_created do |package, build, path|
+jake_hook :file_created do |build, package, build_type, path|
   FILES << File.basename(path)
-  DEPS[path] = package.meta if build == :min
+  DEPS[path] = package.meta if build_type == :min
 end
 
 jake_hook :build_complete do |build|

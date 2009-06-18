@@ -79,8 +79,6 @@ module Jake
     # options. Files are only generated if they are out of date or the build has
     # been forced.
     def write!
-      puts "Package #{@name}..."
-      
       @build.each do |name, settings|
         next unless build_needed?(name)
         
@@ -89,11 +87,10 @@ module Jake
         FileUtils.mkdir_p(File.dirname(path))
         File.open(path, 'wb') { |f| f.write( (header + "\n\n" + code(name)).strip ) }
         
-        @build.class.notify_observers(:file_created, self, name, path)
+        @build.fire(:file_created, self, name, path)
         
         size = (File.size(path)/1024.0).ceil
         path = path.sub(@build.build_directory, '')
-        puts "  -- build '#{ name }' created #{ path }, #{ size } kb"
       end
     end
     

@@ -231,10 +231,12 @@ name. When built, the output would contain the following:
 
 The +Jakefile+ may also define event hooks that are fired during a build when
 interesting things happen. This allows you to extend your build process using
-configuration data from Jake. We currently have two events:
+configuration data from Jake. All event callbacks are passed a +Build+ object
+as the first argument, and may receive additional arguments depending on the
+event type. We currently have two events:
 
 +file_created+ is fired whenever a new build file is created. The callback is
-passed the +Buildable+ package object, the current build name (+src+ or +min+
+passed the +Buildable+ package object, the current build type (+src+ or +min+
 using the above examples), and the full path to the newly created file.
 The package object may contain metadata (set using the +meta+ option, see
 above) which you can use for further code generation.
@@ -246,7 +248,7 @@ directory, etc.
 
   $register = {}
   
-  jake_hook :file_created do |pkg, build_name, path|
+  jake_hook :file_created do |build, pkg, build_type, path|
     $register[path] = pkg.meta
   end
   
