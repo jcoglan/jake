@@ -27,14 +27,14 @@ begin; opts = spec.parse
 rescue Oyster::HelpRendered; exit
 end
 
-LOG_FORMAT = "%-020s %-06s %-032s %07s"
+LOG_FORMAT = "%-020s %-10s %-040s %-07s"
 
 dir   = File.expand_path(opts[:unclaimed].first || '.')
 build = Jake::Build.new(dir, opts)
 
 build.on(:file_created) do |build, pkg, build_type, path|
   size = (File.size(path) / 1024.0).ceil
-  puts LOG_FORMAT % [pkg.name, build_type, path.gsub(dir, ''), "#{ size } kb"]
+  puts LOG_FORMAT % [pkg.name, build_type, path.gsub(dir, ''), "#{ size } kB"]
 end
 
 build.on(:file_not_changed) do |build, pkg, build_type, path|
