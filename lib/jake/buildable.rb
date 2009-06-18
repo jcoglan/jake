@@ -80,10 +80,10 @@ module Jake
     # been forced.
     def write!
       @build.each do |name, settings|
-        next unless build_needed?(name)
+        path = build_path(name)
+        @build.fire(:file_not_changed, self, name, path) and next unless build_needed?(name)
         
         @build.helper.build = name.to_s
-        path = build_path(name)
         FileUtils.mkdir_p(File.dirname(path))
         File.open(path, 'wb') { |f| f.write( (header + "\n\n" + code(name)).strip ) }
         
