@@ -54,6 +54,14 @@ module Jake
       defined?(@forced)
     end
     
+    # Returns a list of names for all packages in the build.
+    def packages
+      list = []
+      @packages.each { |name, pkg| list << name }
+      @bundles.each  { |name, pkg| list << name }
+      list
+    end
+    
     # Returns the +Buildable+ with the given name.
     def package(name)
       @packages[name.to_sym] || @bundles[name.to_sym]
