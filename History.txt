@@ -1,4 +1,4 @@
-=== 0.9.4 / 2009-06-TODO
+=== 1.0.0 / 2009-07-06
 
 * A proper test suite is now in place.
 
@@ -11,6 +11,8 @@
 
 * Metadata can be added to packages using the :meta option. This
   data is available as Package#meta inside event hooks.
+
+* Erubis is now used instead of ERB if available.
 
 
 === 0.9.3 / 2009-05-10
