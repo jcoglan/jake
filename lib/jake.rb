@@ -12,7 +12,7 @@ rescue LoadError
 end
 
 module Jake
-  VERSION = '1.0.0'
+  VERSION = '1.0.1'
   
   CONFIG_FILE = 'jake.yml'
   HELPER_FILE = 'Jakefile'
@@ -28,6 +28,13 @@ module Jake
   # Removes all registered build event hooks.
   def self.clear_hooks!
     Build.delete_observers
+  end
+  
+  # Returns a path made by joining the given pieces and removing unnecessary
+  # /. sections using expand_path.
+  def self.path(*parts)
+    parts = parts.compact.map { |p| p.to_s }
+    File.expand_path(File.join(*parts))
   end
   
   # Returns the contents of the given path, which may be missing a .js extension.

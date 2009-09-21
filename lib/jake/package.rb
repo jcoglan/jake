@@ -5,7 +5,7 @@ module Jake
     def files
       base = parent ? parent.files : []
       base + @config[:files].map do |path|
-        path = "#{ directory }/#{ path }"
+        path = Jake.path( directory, path)
         File.file?(path) ? path : "#{ path }.js"
       end
     end

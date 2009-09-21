@@ -31,15 +31,15 @@ module Jake
     def directory
       dir = @config[:directory]
       return parent.directory if parent && !dir
-      "#{ @build.source_directory }/#{ @config[:directory] }"
+      Jake.path(@build.source_directory, @config[:directory])
     end
     
     # Returns the path to the output file from this package for the given build name.
     def build_path(build_name)
       suffix = @build.use_suffix?(build_name) ? "-#{ build_name }" : ""
       @build.layout == 'together' ?
-          "#{ @build.build_directory }/#{ @name }#{ suffix }.js" :
-          "#{ @build.build_directory }/#{ build_name }/#{ @name }.js"
+          Jake.path(@build.build_directory, "#{ @name }#{ suffix }.js") :
+          Jake.path(@build.build_directory, build_name, "#{ @name }.js")
     end
     
     # Returns +true+ if the build file for the given build name is out of date and
@@ -55,7 +55,7 @@ module Jake
     # Returns the header string being used for this package.
     def header
       content = @config[:header] ?
-          Jake.read("#{ directory }/#{ @config[:header] }") :
+          Jake.read(Jake.path( directory, @config[:header])) :
           (parent ? parent.header : @build.header)
       Jake.erb(content).result(@build.helper.scope).strip
     end

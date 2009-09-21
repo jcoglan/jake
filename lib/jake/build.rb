@@ -18,12 +18,12 @@ module Jake
       @helper = Helper.new(options)
       force! if options[:force]
       
-      path    = "#{dir}/#{CONFIG_FILE}"
+      path    = Jake.path(dir, CONFIG_FILE)
       yaml    = File.read(path)
       
       @config = Jake.symbolize_hash( YAML.load(Jake.erb(yaml).result(@helper.scope)) )
       
-      helpers = "#{dir}/#{HELPER_FILE}"
+      helpers = Jake.path(dir, HELPER_FILE)
       load helpers if File.file?(helpers)
       
       @builds = @config[:builds] || {:src => false, :min => @config[:packer]}
@@ -78,13 +78,13 @@ module Jake
     
     # Returns the path to the build directory, where generated files appear.
     def build_directory
-      "#{ @dir }/#{ @config[:build_directory] || '.' }"
+      Jake.path(@dir, @config[:build_directory] || '.')
     end
     alias :build_dir :build_directory
     
     # Returns the path to the source directory, where source code is read from.
     def source_directory
-      "#{ @dir }/#{ @config[:source_directory] || '.' }"
+      Jake.path(@dir, @config[:source_directory] || '.')
     end
     alias :source_dir :source_directory
     
@@ -92,7 +92,7 @@ module Jake
     # header file has been set.
     def header
       @config[:header] ?
-          Jake.read("#{ source_directory }/#{ @config[:header] }") :
+          Jake.read(Jake.path(source_directory, @config[:header])) :
           ""
     end
     
