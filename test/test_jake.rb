@@ -1,10 +1,12 @@
-require "test/unit"
-require "jake"
-require "fileutils"
-require "find"
+require 'rubygems'
+require 'bundler/setup'
+require 'test/unit'
+require File.expand_path('../../lib/jake', __FILE__)
+require 'fileutils'
+require 'find'
 
 class TestJake < Test::Unit::TestCase
-  DIR = File.dirname(__FILE__)
+  DIR = File.expand_path('..', __FILE__)
   
   def setup
     FileUtils.rm_rf(File.join(DIR, 'output'))

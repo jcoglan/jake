@@ -1,7 +1,8 @@
-#!/usr/bin/ruby
+#!/usr/bin/env ruby
+
 require 'rubygems'
 require 'oyster'
-require File.dirname(__FILE__) + '/../lib/jake'
+require File.expand_path('../../lib/jake', __FILE__)
 
 spec = Oyster.spec do
   name    'jake -- automated build tool for JavaScript projects'
@@ -20,7 +21,7 @@ spec = Oyster.spec do
   flag :force, :default => false,
   :desc => 'Force a rebuild even if files are up-to-date'
   
-  author 'James Coglan <jcoglan@googlemail.com>'
+  author 'James Coglan <jcoglan@gmail.com>'
 end
 
 begin; opts = spec.parse
