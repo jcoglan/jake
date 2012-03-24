@@ -1,5 +1,7 @@
 #!/usr/bin/env ruby
 
+$VERBOSE = nil
+
 require 'rubygems'
 require 'oyster'
 require File.expand_path('../../lib/jake', __FILE__)
