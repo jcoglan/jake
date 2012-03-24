@@ -31,7 +31,7 @@ module Jake
       if packer
         packer = packer.merge(:header => head)
         
-        if source_map = packer[:source_map]
+        if source_map = packer.delete(:source_map)
           output_path = build_path(build_name)
           source_path = Packr::FileSystem.relative_path(build_path(source_map), output_path)
           
