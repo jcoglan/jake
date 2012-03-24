@@ -96,7 +96,7 @@ module Jake
           ""
     end
     
-    # Returns the minification settings for PackR for the given build name. Each
+    # Returns the minification settings for Packr for the given build name. Each
     # +Build+ object can build all its packages multiple times with different
     # minification settings in each run.
     def packer_settings(build_name)

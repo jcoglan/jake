@@ -16,7 +16,7 @@ module Jake
     end
     
     # Returns the result of building the source template and minifying
-    # the output using the given named set of PackR settings.
+    # the output using the given named set of Packr settings.
     def code(build_name)
       return @code[build_name] if @code[build_name]
       

@@ -63,7 +63,7 @@ module Jake
       header << "\n"
     end
     
-    # Returns the PackR settings to use for this package during the given build.
+    # Returns the Packr settings to use for this package during the given build.
     def packer_settings(build_name)
       global = @build.packer_settings(build_name)
       local  = @config[:packer]
