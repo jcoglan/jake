@@ -50,13 +50,13 @@ module Jake
         code = head + "\n" + code if head
       end
       
-      @code[name] = {
+      cached = @code[build_name] = {
         :with_header => code,
         :code        => head && code[head.size..-1]
       }
       with_header ?
-          @code[name][:with_header] :
-          @code[name][:code]
+          cached[:with_header] :
+          cached[:code]
     end
     
   end
