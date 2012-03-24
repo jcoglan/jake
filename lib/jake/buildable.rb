@@ -88,7 +88,14 @@ module Jake
         
         @build.helper.build = name.to_s
         FileUtils.mkdir_p(File.dirname(path))
-        File.open(path, 'wb') { |f| f.write(code(name).strip) }
+        
+        output_code = code(name)
+        source_map = output_code.source_map if output_code.respond_to?(:source_map)
+        
+        File.open(path, 'w') { |f| f.write(output_code.strip) }
+        if source_map
+          File.open(source_map.filename, 'w') { |f| f.write(source_map.to_s.strip) }
+        end
         
         @build.fire(:file_created, self, name, path)
         

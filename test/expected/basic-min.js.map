@@ -1,0 +1,8 @@
+{
+  "version": 3,
+  "file": "basic-min.js",
+  "sourceRoot": "",
+  "sources": ["basic.js"],
+  "names": ["_foo", "myVar", "something"],
+  "mappings": ";;;;;;AAMA,OACE,eAAiB,KAEjB,SAASE,GACP,IAAID,IACJ,OAAOA,EAAQ,KAAKD,GAAOE;"
+}

@@ -25,13 +25,28 @@ module Jake
         return with_header ? cached[:with_header] : cached[:code]
       end
       
-      code = Jake.erb(source).result(@build.helper.scope)
-      head = header
+      packer = packer_settings(build_name)
+      head   = header
       
-      if packer = packer_settings(build_name)
+      if packer
         packer = packer.merge(:header => head)
+        
+        if source_map = packer[:source_map]
+          output_path = build_path(build_name)
+          source_path = Packr::FileSystem.relative_path(build_path(source_map), output_path)
+          
+          packer.update(
+            :output_file  => output_path,
+            :source_files => {source_path => 0}
+          )
+          code = code(source_map)
+        else
+          code = Jake.erb(source).result(@build.helper.scope)
+        end
+        
         code = Packr.pack(code, packer)
       else
+        code = Jake.erb(source).result(@build.helper.scope)
         code = head + "\n" + code if head
       end
       
