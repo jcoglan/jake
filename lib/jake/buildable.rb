@@ -93,7 +93,8 @@ module Jake
         source_map = output_code.source_map if output_code.respond_to?(:source_map)
         
         File.open(path, 'w') { |f| f.write(output_code.strip) }
-        if source_map
+        
+        if source_map and source_map.enabled?
           File.open(source_map.filename, 'w') { |f| f.write(source_map.to_s.strip) }
         end
         
