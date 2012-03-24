@@ -17,8 +17,10 @@ class TestJake < Test::Unit::TestCase
   def test_build
     Jake.clear_hooks!
     Jake.build!(DIR)
+    
     expected = File.join(DIR, 'expected')
     actual   = File.join(DIR, 'output')
+    
     Find.find(expected) do |path|
       next unless File.file?(path)
       actual_path = actual + path.gsub(expected, '')

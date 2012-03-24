@@ -1,16 +1,21 @@
 ---
 source_directory:   src
 build_directory:    output
+
 builds:
   min:
     shrink_vars:    true
     private:        true
+    source_map:     src
   src:
     packer:         false
     suffix:         false
+
 header:             head
+
 packages:
   basic:            basic
+  
   ext:
     extends:        basic
     packer:
@@ -22,8 +27,10 @@ packages:
         - Basic
       requires:
         - Foo
+  
   sub/dir/foo:
     - foo/foo
+  
   sub/path/bar:
     directory:      foo
     header:         ../head2
@@ -31,8 +38,8 @@ packages:
       shrink_vars:  false
     files:
       - bar
+
 bundles:
   combo/box:
     - sub/dir/foo
     - ext
-

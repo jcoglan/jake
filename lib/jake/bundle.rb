@@ -17,9 +17,17 @@ module Jake
     
     # Returns the result of building the source template and minifying
     # the output using the given named set of PackR settings.
-    def code(name)
-      joiner = (packer_settings(name) == false) ? "\n\n\n" : "\n"
-      @code[name] ||= @config[:files].map { |pkg| @build.package(pkg).code(name) }.join(joiner)
+    def code(build_name)
+      return @code[build_name] if @code[build_name]
+      
+      joiner = (packer_settings(build_name) == false) ? "\n\n" : ""
+      
+      code = @config[:files].map { |pkg| @build.package(pkg).code(build_name, false) }.join(joiner)
+      if head = header
+        code = head + code
+      end
+      
+      @code[build_name] = code
     end
     
   end

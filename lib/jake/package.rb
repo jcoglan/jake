@@ -20,11 +20,28 @@ module Jake
     
     # Returns the result of building the source template and minifying
     # the output using the given named set of PackR settings.
-    def code(name)
-      return @code[name] if @code[name]
-      settings = packer_settings(name)
-      output = Jake.erb(source).result(@build.helper.scope)
-      @code[name] = settings ? Packr.pack(output, settings) : output
+    def code(build_name, with_header = true)
+      if cached = @code[build_name]
+        return with_header ? cached[:with_header] : cached[:code]
+      end
+      
+      code = Jake.erb(source).result(@build.helper.scope)
+      head = header
+      
+      if packer = packer_settings(build_name)
+        packer = packer.merge(:header => head)
+        code = Packr.pack(code, packer)
+      else
+        code = head + "\n" + code if head
+      end
+      
+      @code[name] = {
+        :with_header => code,
+        :code        => head && code[head.size..-1]
+      }
+      with_header ?
+          @code[name][:with_header] :
+          @code[name][:code]
     end
     
   end

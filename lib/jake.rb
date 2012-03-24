@@ -1,8 +1,6 @@
 require 'erb'
 require 'fileutils'
-require 'observer'
 require 'yaml'
-require 'rubygems'
 require 'packr'
 require 'eventful'
 
@@ -17,6 +15,13 @@ module Jake
   CONFIG_FILE = 'jake.yml'
   HELPER_FILE = 'Jakefile'
   EXTENSION   = '.js'
+  
+  dir = File.expand_path('../jake', __FILE__)
+  autoload :Build,     dir + '/build'
+  autoload :Buildable, dir + '/buildable'
+  autoload :Bundle,    dir + '/bundle'
+  autoload :Helper,    dir + '/helper'
+  autoload :Package,   dir + '/package'
   
   # Runs a build in the given directory. The directory must contain a jake.yml
   # file, and may contain a Jakefile. See README for example YAML configurations.
@@ -59,11 +64,6 @@ module Jake
   def self.erb(template)
     defined?(Erubis) ? Erubis::Eruby.new(template) : ERB.new(template)
   end
-  
-end
-
-%w(helper build buildable package bundle).each do |file|
-  require File.dirname(__FILE__) + '/jake/' + file
 end
 
 # Adds a helper method that can be called from ERB.

@@ -57,7 +57,10 @@ module Jake
       content = @config[:header] ?
           Jake.read(Jake.path( directory, @config[:header])) :
           (parent ? parent.header : @build.header)
-      Jake.erb(content).result(@build.helper.scope).strip
+      
+      header = Jake.erb(content).result(@build.helper.scope).strip
+      return nil if header == ''
+      header << "\n"
     end
     
     # Returns the PackR settings to use for this package during the given build.
@@ -85,7 +88,7 @@ module Jake
         
         @build.helper.build = name.to_s
         FileUtils.mkdir_p(File.dirname(path))
-        File.open(path, 'wb') { |f| f.write( (header + "\n\n" + code(name)).strip ) }
+        File.open(path, 'wb') { |f| f.write(code(name).strip) }
         
         @build.fire(:file_created, self, name, path)
         
