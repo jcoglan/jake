@@ -15,7 +15,7 @@ module Jake
     # simply builds the raw template for further processing by other
     # methods.
     def source
-      @source ||= files.map { |path| Jake.read(path) }.join("\n\n\n")
+      @source ||= files.map { |path| Jake.read(path) }.join("\n\n")
     end
     
     # Returns the result of building the source template and minifying

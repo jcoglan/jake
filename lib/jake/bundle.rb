@@ -12,7 +12,7 @@ module Jake
     # simply builds the raw template for further processing by other
     # methods.
     def source
-      @source ||= @config[:files].map { |pkg| @build.package(pkg).source }.join("\n\n\n")
+      @source ||= @config[:files].map { |pkg| @build.package(pkg).source }.join("\n\n")
     end
     
     # Returns the result of building the source template and minifying
