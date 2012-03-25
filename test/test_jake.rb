@@ -27,7 +27,7 @@ class TestJake < Test::Unit::TestCase
       
       flunk "File #{actual_path} is missing" unless File.file?(actual_path)
       
-      assert_equal File.read(path).strip, File.read(actual_path),
+      assert_equal File.read(path), File.read(actual_path),
                    "File #{actual_path} does not match #{path}"
     end
   end
