@@ -33,13 +33,24 @@ module Jake
         
         if source_map = packer.delete(:source_map)
           output_path = build_path(build_name)
-          source_path = Packr::FileSystem.relative_path(build_path(source_map), output_path)
+          packer.update(:output_file => output_path)
           
-          packer.update(
-            :output_file  => output_path,
-            :source_files => {source_path => 0}
-          )
-          code = code(source_map)
+          if source_map == :source
+            source_offsets = {}
+            code = head ? head + "\n" : ''
+            
+            files.each do |file|
+              source_path = Packr::FileSystem.relative_path(file, output_path)
+              source_offsets[source_path] = code.size
+              code << Jake.erb(Jake.read(file)).result(@build.helper.scope) << "\n"
+            end
+            
+            packer.update(:source_files => source_offsets)
+          else
+            source_path = Packr::FileSystem.relative_path(build_path(source_map), output_path)
+            packer.update(:source_files => {source_path => 0})
+            code = code(source_map)
+          end
         else
           code = Jake.erb(source).result(@build.helper.scope)
         end
