@@ -15,6 +15,8 @@ Foo = (function(my, vars) {
 })(window, something);
 
 
+
+
 Basic = {
   VERSION:  "0.5.0-src",
   
@@ -23,6 +25,11 @@ Basic = {
     return myVar + this._foo + something;
   }
 };
+
+
+
+
+
 
 
 Basic.Ext = "SRC";

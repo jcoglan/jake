@@ -45,8 +45,8 @@ module Jake
   # Returns the contents of the given path, which may be missing a .js extension.
   def self.read(path)
     path = File.expand_path(path)
-    [path, "#{path}#{EXTENSION}"].each do |p|
-      return File.read(p).strip if File.file?(p)
+    [path, "#{path}#{EXTENSION}"].each do |file|
+      return File.read(file) if File.file?(file)
     end
     return nil
   end
