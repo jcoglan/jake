@@ -63,23 +63,17 @@ module Jake
         code_for_original_map(packer)
       else
         source_path = Packr::FileSystem.relative_path(build_path(source_map), output_path)
-        packer.update(:source_files => {source_path => 0})
-        code(source_map)
+        [{:code => code(source_map), :source => source_path}]
       end  
     end
     
     def code_for_original_map(packer)
-      source_offsets = {}
-      code = ''
-      
-      files.each do |file|
-        source_path = Packr::FileSystem.relative_path(file, packer[:output_file])
-        source_offsets[source_path] = code.size
-        code << compile_erb(Jake.read(file)) << "\n"
+      files.map do |file|
+        {
+          :code   => compile_erb(Jake.read(file)),
+          :source => Packr::FileSystem.relative_path(file, packer[:output_file])
+        }
       end
-      
-      packer.update(:source_files => source_offsets)
-      code
     end
     
     def compile_erb(template)
