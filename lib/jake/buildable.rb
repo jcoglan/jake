@@ -68,7 +68,7 @@ module Jake
       global = @build.packer_settings(build_name)
       local  = @config[:packer]
       return parent.packer_settings(build_name) if parent && !local
-      return false if global == false or local == false
+      return {:minify => false} if global == false or local == false
       {}.merge(global || {}).merge(local || {})
     end
     

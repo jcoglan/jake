@@ -3,7 +3,6 @@
  * even if they have been minified.
  * 0.5.0-src
  **/
-
 Foo = (function(my, vars) {
   var another = true;
   
@@ -13,9 +12,6 @@ Foo = (function(my, vars) {
     global: foo
   };
 })(window, something);
-
-
-
 
 Basic = {
   VERSION:  "0.5.0-src",

@@ -22,27 +22,14 @@ module Jake
     # the output using the given named set of Packr settings.
     def code(build_name, with_header = true)
       if cached = @code[build_name]
-        return with_header ? cached[:with_header] : cached[:code]
+        return with_header ? cached : cached.code
       end
       
-      packer = packer_settings(build_name)
-      head   = header
+      packer = packer_settings(build_name).merge(:header => header)
+      code = code_for_packer(packer, build_name)
       
-      if packer
-        packer = packer.merge(:header => head)
-        code = code_for_packer(packer, build_name)
-      else
-        code = compile_erb(source)
-        code = head + "\n" + code if head
-      end
-      
-      cached = @code[build_name] = {
-        :with_header => code,
-        :code        => head && code[head.size..-1]
-      }
-      with_header ?
-          cached[:with_header] :
-          cached[:code]
+      cached = @code[build_name] = code
+      with_header ? code : code.code
     end
     
   private
