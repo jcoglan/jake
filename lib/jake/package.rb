@@ -15,7 +15,7 @@ module Jake
     # simply builds the raw template for further processing by other
     # methods.
     def source
-      @source ||= files.map { |path| Jake.read(path) }.join("\n\n")
+      @source ||= files.map { |path| Jake.read(path) }.join("\n")
     end
     
     # Returns the result of building the source template and minifying
@@ -25,7 +25,12 @@ module Jake
         return with_header ? cached : cached.code
       end
       
-      packer = packer_settings(build_name).merge(:header => header)
+      packer = packer_settings(build_name)
+      
+      head = header
+      head = head.strip unless packer[:minify] == false
+      
+      packer = packer.merge(:header => head)
       code = code_for_packer(packer, build_name)
       
       cached = @code[build_name] = code

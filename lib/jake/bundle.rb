@@ -12,7 +12,7 @@ module Jake
     # simply builds the raw template for further processing by other
     # methods.
     def source
-      @source ||= @config[:files].map { |pkg| @build.package(pkg).source }.join("\n\n")
+      @source ||= @config[:files].map { |pkg| @build.package(pkg).source }.join("\n")
     end
     
     # Returns the result of building the source template and minifying
@@ -20,7 +20,8 @@ module Jake
     def code(build_name)
       return @code[build_name] if @code[build_name]
       
-      joiner = (packer_settings(build_name) == false) ? "\n\n" : ""
+      packer = packer_settings(build_name)
+      joiner = (packer[:minify] == false) ? "\n" : ""
       
       code = @config[:files].map { |pkg| @build.package(pkg).code(build_name, false) }.join(joiner)
       if head = header

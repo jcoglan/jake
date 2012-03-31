@@ -6,4 +6,3 @@ Basic = {
     return myVar + this._foo + something;
   }
 };
-

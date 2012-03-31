@@ -4,5 +4,5 @@
   "sourceRoot": "",
   "sources": ["../src/basic-ext.js", "../src/basic.js"],
   "names": ["myVar", "something"],
-  "mappings": ";;;;;;ACAA,OACE,eAAiB,KAEjB,SAASC,GACP,IAAID,IACJ,OAAOA,EAAQ,KAAK,KAAOC,IDF/B,MAAM,KAAO;"
+  "mappings": ";;;;;ACAA,OACE,eAAiB,KAEjB,SAASC,GACP,IAAID,IACJ,OAAOA,EAAQ,KAAK,KAAOC,IDF/B,MAAM,KAAO;"
 }

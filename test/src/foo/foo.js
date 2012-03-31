@@ -1,3 +1,5 @@
+
+
 Foo = (function(my, vars) {
   var another = true;
   
@@ -7,4 +9,3 @@ Foo = (function(my, vars) {
     global: foo
   };
 })(window, something);
-

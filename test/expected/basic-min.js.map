@@ -4,5 +4,5 @@
   "sourceRoot": "",
   "sources": ["basic.js"],
   "names": ["_foo", "myVar", "something"],
-  "mappings": ";;;;;;AAOA,OACE,eAAiB,KAEjB,SAASE,GACP,IAAID,IACJ,OAAOA,EAAQ,KAAKD,GAAOE;"
+  "mappings": ";;;;;AAOA,OACE,eAAiB,KAEjB,SAASE,GACP,IAAID,IACJ,OAAOA,EAAQ,KAAKD,GAAOE;"
 }

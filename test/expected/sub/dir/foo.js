@@ -5,6 +5,8 @@
  **/
 
 
+
+
 Foo = (function(my, vars) {
   var another = true;
   

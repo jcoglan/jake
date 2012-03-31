@@ -3,4 +3,3 @@
  * even if they have been minified.
  * <%= version %>-<%= build %>
  **/
-

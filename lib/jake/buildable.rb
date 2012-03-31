@@ -58,9 +58,9 @@ module Jake
           Jake.read(Jake.path( directory, @config[:header])) :
           (parent ? parent.header : @build.header)
       
-      header = Jake.erb(content).result(@build.helper.scope).strip
+      header = Jake.erb(content).result(@build.helper.scope)
       return nil if header == ''
-      header << "\n"
+      header
     end
     
     # Returns the Packr settings to use for this package during the given build.
@@ -92,10 +92,10 @@ module Jake
         output_code = code(name)
         source_map = output_code.source_map if output_code.respond_to?(:source_map)
         
-        File.open(path, 'w') { |f| f.write(output_code.strip) }
+        File.open(path, 'w') { |f| f.write(output_code) }
         
         if source_map and source_map.enabled?
-          File.open(source_map.filename, 'w') { |f| f.write(source_map.to_s.strip) }
+          File.open(source_map.filename, 'w') { |f| f.write(source_map.to_s) }
         end
         
         @build.fire(:file_created, self, name, path)
