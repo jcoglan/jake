@@ -49,7 +49,9 @@ module Jake
       path = build_path(name)
       return true unless File.file?(path)
       build_time = File.mtime(path)
-      files.any? { |path| File.mtime(path) > build_time }
+      
+      input_files = files + @build.config_files
+      input_files.any? { |path| File.mtime(path) > build_time }
     end
     
     # Returns the header string being used for this package.

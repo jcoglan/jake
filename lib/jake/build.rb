@@ -8,7 +8,7 @@ module Jake
     DEFAULT_LAYOUT = 'together'
     
     include Enumerable
-    attr_reader :helper
+    attr_reader :config_files, :helper
     
     # Builds are initialized using a directory in which to run the build, and an
     # options hash. Options are passed through to helper methods in the +options+
@@ -21,10 +21,14 @@ module Jake
       path    = Jake.path(dir, CONFIG_FILE)
       yaml    = File.read(path)
       
+      @config_files = [path]
       @config = Jake.symbolize_hash( YAML.load(Jake.erb(yaml).result(@helper.scope)) )
       
       helpers = Jake.path(dir, HELPER_FILE)
-      load helpers if File.file?(helpers)
+      if File.file?(helpers)
+        load helpers
+        @config_files << helpers
+      end
       
       @builds = @config[:builds] || {:src => false, :min => @config[:packer]}
       
