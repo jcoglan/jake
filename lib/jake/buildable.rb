@@ -1,15 +1,8 @@
 module Jake
-  # A +Buildable+ represents a group of files that may be merged to form a single
-  # build file. There are two subtypes of +Buildable+; a +Package+ takes several
-  # source files and produces a build file, and a +Bundle+ takes several +Package+
-  # build files to produce another build file. This class should be considered
-  # abstract as some of its methods must be filled in by subtypes.
   class Buildable
     
     attr_reader :name
     
-    # Create a new +Buildable+ using a +Build+ container, a name and a configuration
-    # hash, typically a subsection of jake.yml.
     def initialize(build, name, config)
       @build, @name = build, name
       @config = case config
@@ -20,21 +13,17 @@ module Jake
       @code = {}
     end
     
-    # Returns the parent +Buildable+ set using the +extends+ option, or +nil+ if
-    # there is no parent.
     def parent
       return nil unless @config[:extends]
       @parent ||= @build.package(@config[:extends])
     end
     
-    # Returns the source directory for this package.
     def directory
       dir = @config[:directory]
       return parent.directory if parent && !dir
       Jake.path(@build.source_directory, @config[:directory])
     end
     
-    # Returns the path to the output file from this package for the given build name.
     def build_path(build_name)
       suffix = @build.use_suffix?(build_name) ? "-#{ build_name }" : ""
       @build.layout == 'together' ?
@@ -42,8 +31,6 @@ module Jake
           Jake.path(@build.build_directory, build_name, "#{ @name }.js")
     end
     
-    # Returns +true+ if the build file for the given build name is out of date and
-    # should be regenerated.
     def build_needed?(name)
       return true if @build.forced?
       path = build_path(name)
@@ -54,7 +41,6 @@ module Jake
       input_files.any? { |path| File.mtime(path) > build_time }
     end
     
-    # Returns the header string being used for this package.
     def header
       content = @config[:header] ?
           Jake.read(Jake.path( directory, @config[:header])) :
@@ -65,7 +51,6 @@ module Jake
       header
     end
     
-    # Returns the Packr settings to use for this package during the given build.
     def packer_settings(build_name)
       global = @build.packer_settings(build_name)
       local  = @config[:packer]
@@ -74,15 +59,10 @@ module Jake
       {}.merge(global || {}).merge(local || {})
     end
     
-    # Returns a hash containing any metadata attached to the package in the config.
     def meta
       @config[:meta] || {}
     end
     
-    # Generates all the build files for this package by looping over all the
-    # required builds and compressing the source code using each set of minification
-    # options. Files are only generated if they are out of date or the build has
-    # been forced.
     def write!
       @build.each do |name, settings|
         path = build_path(name)
