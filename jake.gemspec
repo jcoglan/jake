@@ -15,7 +15,7 @@ Gem::Specification.new do |s|
   s.require_paths     = ["lib"]
 
   s.add_dependency "eventful", ">= 1.0.0"
-  s.add_dependency "packr", ">= 3.1.0"
+  s.add_dependency "packr", ">= 3.2.0"
   s.add_dependency "oyster", ">= 0.9.5"
 
   s.add_development_dependency "test-unit"
