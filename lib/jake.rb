@@ -10,7 +10,7 @@ rescue LoadError
 end
 
 module Jake
-  VERSION = '1.0.1'
+  VERSION = '1.1.0'
   
   CONFIG_FILE = 'jake.yml'
   HELPER_FILE = 'Jakefile'
