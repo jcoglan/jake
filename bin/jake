@@ -37,11 +37,11 @@ build = Jake::Build.new(dir, opts)
 
 build.on(:file_created) do |build, pkg, build_type, path|
   size = (File.size(path) / 1024.0).ceil
-  puts LOG_FORMAT % [pkg.name, build_type, path.gsub(dir, ''), "#{ size } kB"]
+  puts LOG_FORMAT % [pkg.name, build_type, path.gsub(dir + '/', ''), "#{ size } kB"]
 end
 
 build.on(:file_not_changed) do |build, pkg, build_type, path|
-  puts LOG_FORMAT % [pkg.name, build_type, path.gsub(dir, ''), 'UP-TO-DATE']
+  puts LOG_FORMAT % [pkg.name, build_type, path.gsub(dir + '/', ''), '--']
 end
 
 build.run!
