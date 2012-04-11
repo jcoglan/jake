@@ -46,6 +46,7 @@ module Jake
           Jake.read(Jake.path( directory, @config[:header])) :
           (parent ? parent.header : @build.header)
       
+      return nil unless content
       header = Jake.erb(content).result(@build.helper.scope)
       return nil if header == ''
       header
@@ -75,12 +76,12 @@ module Jake
         source_map = output_code.source_map if output_code.respond_to?(:source_map)
         
         File.open(path, 'w') { |f| f.write(output_code) }
+        @build.fire(:file_created, self, name, path)
         
         if source_map and source_map.enabled?
           File.open(source_map.filename, 'w') { |f| f.write(source_map.to_s) }
+          @build.fire(:file_created, self, name, source_map.filename)
         end
-        
-        @build.fire(:file_created, self, name, path)
         
         size = (File.size(path)/1024.0).ceil
         path = path.sub(@build.build_directory, '')

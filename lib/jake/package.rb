@@ -21,7 +21,7 @@ module Jake
       packer = packer_settings(build_name)
       
       head = header
-      head = head.strip unless packer[:minify] == false
+      head = head && head.strip unless packer[:minify] == false
       
       packer = packer.merge(:header => head)
       code = code_for_packer(packer, build_name)
