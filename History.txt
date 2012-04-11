@@ -1,3 +1,9 @@
+=== 1.1.1 / 2012-04-11
+
+* Fix building of packages without headers
+* Print generated source map files in bin/packr output
+
+
 === 1.1.0 / 2012-04-07
 
 * Add support for source maps from Packr 3.2
